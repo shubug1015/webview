@@ -2,6 +2,8 @@ import Input from '@components/input';
 import { cls } from '@libs/client/utils';
 import type { NextPage } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 
 interface IForm {
@@ -10,6 +12,9 @@ interface IForm {
 }
 
 const Login: NextPage = () => {
+  const router = useRouter();
+  const [error, setError] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -18,6 +23,11 @@ const Login: NextPage = () => {
     mode: 'onChange',
   });
   const onValid = async (data: IForm) => {
+    if (data.username === 'admin' && data.password === '123') {
+      router.push('/picture');
+    } else {
+      setError('아이디 또는 비밀번호가 일치하지 않습니다.');
+    }
     console.log(data);
   };
   const onInvalid = (errors: FieldErrors) => {
@@ -49,21 +59,21 @@ const Login: NextPage = () => {
           />
         </div>
 
-        {/* <div
+        <div
           className={cls(
-            error ? 'mt-4' : '',
+            error ? 'mt-2' : '',
             'flex items-center text-sm text-red-500'
           )}
         >
-          {error && '아이디 또는 비밀번호가 일치하지 않습니다.'}
-        </div> */}
+          {error}
+        </div>
         {/* Input 필드 */}
 
         {/* 로그인 버튼 */}
         <button
           type='submit'
           className={cls(
-            // error ? 'mt-4' : 'mt-8',
+            error ? 'mt-4' : 'mt-8',
             'mt-8 flex h-[3.688rem] w-full cursor-pointer items-center justify-center rounded bg-[#00e7ff] text-lg font-medium text-[#282e38] transition-all hover:opacity-90 md:h-14 md:text-base'
           )}
         >
