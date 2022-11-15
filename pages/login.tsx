@@ -1,10 +1,10 @@
-import Input from '@components/input';
-import { cls } from '@libs/client/utils';
-import type { NextPage } from 'next';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { FieldErrors, useForm } from 'react-hook-form';
+import Input from "@components/input";
+import { cls } from "@libs/client/utils";
+import type { NextPage } from "next";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { FieldErrors, useForm } from "react-hook-form";
 
 interface IForm {
   username: string;
@@ -13,47 +13,48 @@ interface IForm {
 
 const Login: NextPage = () => {
   const router = useRouter();
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IForm>({
-    mode: 'onChange',
+    mode: "onChange",
   });
   const onValid = async (data: IForm) => {
-    if (data.username === 'admin' && data.password === '123') {
-      router.push('/picture');
+    if (data.username === "admin" && data.password === "123") {
+      router.push("/picture");
     } else {
-      setError('아이디 또는 비밀번호가 일치하지 않습니다.');
+      setError("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
     console.log(data);
   };
-  const onInvalid = (errors: FieldErrors) => {
-    console.log(errors);
-  };
+  // const onInvalid = (errors: FieldErrors) => {
+  //   console.log(errors);
+  // };
   return (
-    <div className='mx-auto flex h-screen flex-col items-center justify-center rounded-lg bg-[#373c46] p-[3.75rem] md:max-w-[330px] md:bg-transparent md:p-0'>
-      <h1 className='text-2xl font-bold'>로그인</h1>
+    <div className="mx-auto flex h-screen flex-col items-center justify-center rounded-lg bg-[#373c46] p-[3.75rem] md:max-w-[330px] md:bg-transparent md:p-0">
+      <h1 className="text-2xl font-bold">로그인</h1>
 
-      <form onSubmit={handleSubmit(onValid, onInvalid)} className='w-full'>
+      <form onSubmit={handleSubmit(onValid)} className="w-full">
+        {/* <form onSubmit={handleSubmit(onValid, onInvalid)} className="w-full"> */}
         {/* Input 필드 */}
-        <div className='mt-12 w-full space-y-8 md:space-y-4'>
+        <div className="mt-12 w-full space-y-8 md:space-y-4">
           <Input
-            type='text'
-            label='아이디'
-            register={register('username', {
-              required: '아이디를 입력해주세요',
+            type="text"
+            label="아이디"
+            register={register("username", {
+              required: "아이디를 입력해주세요",
             })}
             error={errors?.username?.message}
           />
 
           <Input
-            type='password'
-            label='비밀번호'
-            register={register('password', {
-              required: '비밀번호 입력해주세요',
+            type="password"
+            label="비밀번호"
+            register={register("password", {
+              required: "비밀번호 입력해주세요",
             })}
             error={errors?.password?.message}
           />
@@ -61,8 +62,8 @@ const Login: NextPage = () => {
 
         <div
           className={cls(
-            error ? 'mt-2' : '',
-            'flex items-center text-sm text-red-500'
+            error ? "mt-2" : "",
+            "flex items-center text-sm text-red-500"
           )}
         >
           {error}
@@ -71,10 +72,10 @@ const Login: NextPage = () => {
 
         {/* 로그인 버튼 */}
         <button
-          type='submit'
+          type="submit"
           className={cls(
-            error ? 'mt-4' : 'mt-8',
-            'mt-8 flex h-[3.688rem] w-full cursor-pointer items-center justify-center rounded bg-[#00e7ff] text-lg font-medium text-[#282e38] transition-all hover:opacity-90 md:h-14 md:text-base'
+            error ? "mt-4" : "mt-8",
+            "mt-8 flex h-[3.688rem] w-full cursor-pointer items-center justify-center rounded bg-[#00e7ff] text-lg font-medium text-[#282e38] transition-all hover:opacity-90 md:h-14 md:text-base"
           )}
         >
           로그인
@@ -102,11 +103,11 @@ const Login: NextPage = () => {
         {/* 로그인 버튼 */}
       </form>
 
-      <div className='my-6 h-px w-full bg-[rgba(255,255,255,0.38)] md:my-4' />
+      <div className="my-6 h-px w-full bg-[rgba(255,255,255,0.38)] md:my-4" />
 
       {/* 회원가입 버튼 */}
-      <Link href='/signup'>
-        <a className='flex h-[3.688rem] w-full items-center justify-center rounded bg-[#4a4e57] text-lg font-medium transition-all hover:opacity-90 md:h-14 md:text-base'>
+      <Link href="/signup">
+        <a className="flex h-[3.688rem] w-full items-center justify-center rounded bg-[#4a4e57] text-lg font-medium transition-all hover:opacity-90 md:h-14 md:text-base">
           회원가입
         </a>
       </Link>
